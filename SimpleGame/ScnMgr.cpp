@@ -169,7 +169,8 @@ void ScnMgr::ObjectCollision()
 {
 
 	for (int i = 0; i < MAX_OBJECTS; ++i) {
-		if (objs[i]->GetIsVisible())
+		if (objs[i]->GetIsVisible()) {
+			WallCollision(objs[i]);
 			for (int j = 0; j < MAX_OBJECTS; ++j) {
 				if (i != j)
 					if (objs[j]->GetIsVisible()) {
@@ -177,7 +178,7 @@ void ScnMgr::ObjectCollision()
 
 							// 충돌에 의한 반응
 							CollisionReaction(objs[i], objs[j]);
-							
+
 							//캐릭터 - 공(떨궈진 공-먹어지기, 쏜 공-, 먹은 공)
 
 							//공 - 공
@@ -187,6 +188,7 @@ void ScnMgr::ObjectCollision()
 						}
 					}
 			}
+		}
 	}
 
 }

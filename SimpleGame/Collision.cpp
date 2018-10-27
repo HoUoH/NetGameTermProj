@@ -6,7 +6,7 @@
 #include <math.h>
 #include <float.h>
 
-float e = 1;	// Åº¼º °è¼ö
+float e = 1.5f;	// Åº¼º °è¼ö
 
 bool CollisionCheck(object * oA, object * oB)
 {
@@ -80,18 +80,19 @@ void CollisionReaction(class object* oA, class object* oB)
 				(oB_M + e * oB_M) / (oA_M + oB_M)*(oB_preVX*cosTheta + oB_preVY*sinTheta);
 			float vxBp = (oA_M + e * oA_M) / (oA_M + oB_M)*(oA_preVX*cosTheta + oA_preVY*sinTheta) +
 				(oB_M - e * oA_M) / (oA_M + oB_M)*(oB_preVX*cosTheta + oB_preVY*sinTheta);
+
 			float vyAp = oA_preVX*(-sinTheta) + oA_preVY*cosTheta;
 			float vyBp = oB_preVX*(-sinTheta) + oB_preVY*cosTheta;
-
+			/*
 			float angleAB = atan2(dy, dx);
 			float angleBA = atan2(-dy, -dx);
 			float moveToDistance = fabsf(oA_rad + oB_rad) - dab;
 			oA_X = oA_X + moveToDistance * cos(angleAB);
 			oB_X = oB_X + moveToDistance * cos(angleBA);
-
+			*/
 			oA->SetVelocity(vxAp, vyAp);
 			oB->SetVelocity(vyAp, vyBp);
-	
+
 		}
 		else
 		{
@@ -117,6 +118,17 @@ void WallCollision(class object* obj)
 	float rad, height = 0;
 	obj->GetLocation(&posX, &posY);
 	obj->GetSize(&rad, &height);
+
+	if (posX - rad/2 <= -WINDOW_SIZEX/2||posX+rad/2>= WINDOW_SIZEX / 2) {
+		float vx, vy;
+		obj->GetVelocity(&vx, &vy);
+		obj->SetVelocity(-vx, vy);
+	}
+	if (posY - rad/2 <= -WINDOW_SIZEX / 2 || posY + rad/2 >= WINDOW_SIZEX / 2) {
+		float vx, vy;
+		obj->GetVelocity(&vx, &vy);
+		obj->SetVelocity(vx, -vy);
+	}
 
 
 
