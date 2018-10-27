@@ -3,8 +3,8 @@
 #include <math.h>
 #include <float.h>
 
-float maxVelocity = 300.f;
-float minVelocity = -300.f;
+float maxVelocity = 500.f;
+float minVelocity = -500.f;
 
 object::object()
 {
@@ -64,6 +64,19 @@ void object::Update(float elapsed_time_in_sec)
 	//갱신될 위치 = 이전 위치 + 속도 * 시간 
 	posX = posX + velX * elapsed_time_in_sec;
 	posY = posY + velY * elapsed_time_in_sec;
+
+
+	if (velX - maxVelocity > FLT_EPSILON)
+		velX = maxVelocity;
+
+	if (velX - minVelocity < FLT_EPSILON)
+		velX = minVelocity;
+
+	if (velY - maxVelocity > FLT_EPSILON)
+		velY = maxVelocity;
+
+	if (velY - minVelocity < FLT_EPSILON)
+		velY = minVelocity;
 
 }
 void object::SetLocation(float x, float y)
@@ -200,17 +213,6 @@ void object::ApplyForce(float ForceX, float ForceY, float elapsed_time_in_sec)
 	accX = 0;
 	accY = 0;
 
-	if (velX - maxVelocity > FLT_EPSILON)
-		velX = maxVelocity;
-
-	if (velX - minVelocity < FLT_EPSILON)
-		velX = minVelocity;
-
-	if (velY - maxVelocity > FLT_EPSILON)
-		velY = maxVelocity;
-
-	if (velY - minVelocity < FLT_EPSILON)
-		velY = minVelocity;
 }
 
 void object::BreakMovement(bool W_KeyIsDown, bool S_KeyIsDown, bool D_KeyIsDown, bool A_KeyIsDown, float elapsed_time_in_sec)

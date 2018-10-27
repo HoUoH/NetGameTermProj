@@ -6,7 +6,7 @@
 #include <math.h>
 #include <float.h>
 
-float e = 1.5f;	// Åº¼º °è¼ö
+float e = 1.f;	// Åº¼º °è¼ö
 
 bool CollisionCheck(object * oA, object * oB)
 {
