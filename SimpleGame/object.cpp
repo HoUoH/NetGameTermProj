@@ -25,21 +25,28 @@ void object::Update(float elapsed_time_in_sec)
 
 	float gz = mass * 9.8;
 	float friction = coefFriction * gz;
-	float velmag = sqrtf(velX*velX + velY * velY);
 
-	if (velmag < FLT_EPSILON) {
+	
+
+	//벡터의 크기 (크기, 방향 둘다 가지고 있음)
+	preVelMag = sqrtf(velX * velX + velY * velY);
+
+	if (preVelMag < FLT_EPSILON) {
 		velX = 0.f;
 		velY = 0.f;
 	}
-	else {
+	else { // 마찰력에 의한 속도 변화
+		
 		//방향 구하기 정규화
-		frictionX = -friction * velX / velmag;
-		frictionY = -friction * velY / velmag;
+		frictionX = -friction * velX / preVelMag;
+		frictionY = -friction * velY / preVelMag;
 
-		float accX = frictionX / mass;
-		float accY = frictionY / mass;
-		float newVelX = velX + accX * elapsed_time_in_sec;
-		float newVelY = velY + accY * elapsed_time_in_sec;
+		float frictionAccX = frictionX / mass;
+		float frictionAccY = frictionY / mass;
+
+		float newVelX = velX + frictionAccX * elapsed_time_in_sec;	// 현재 속도 + (마찰력에 의한 속도 : 실질적으로 현재속도 반대방향)
+		float newVelY = velY + frictionAccY * elapsed_time_in_sec;
+
 		if (newVelX*velX < 0.f)
 			velX = 0.f;
 		else
@@ -49,15 +56,14 @@ void object::Update(float elapsed_time_in_sec)
 		else
 			velY = newVelY;
 	}
-	//속도 계산
-	velX = velX + accX * elapsed_time_in_sec;
-	velY = velY + accY * elapsed_time_in_sec;
+	// 최종 속도 계산
+	velX = velX + (accX * elapsed_time_in_sec);
+	velY = velY + (accY * elapsed_time_in_sec);
+
 
 	//갱신될 위치 = 이전 위치 + 속도 * 시간 
 	posX = posX + velX * elapsed_time_in_sec;
 	posY = posY + velY * elapsed_time_in_sec;
-
-
 
 }
 void object::SetLocation(float x, float y)
@@ -158,7 +164,8 @@ void object::GetKind(int * kind)
 
 }
 
-void object::SetIsVisible(bool view)
+
+void object::SetIsVisible(bool isVisible)
 {
 	this->isVisible = isVisible;
 }
@@ -181,16 +188,16 @@ void object::ApplyForce(float ForceX, float ForceY, float elapsed_time_in_sec)
 	accX = 0;
 	accY = 0;
 
-	if (velX > maxVelocity)
+	if (velX - maxVelocity > FLT_EPSILON)
 		velX = maxVelocity;
 
-	if (velX < minVelocity)
+	if (velX - minVelocity < FLT_EPSILON)
 		velX = minVelocity;
 
-	if (velY > maxVelocity)
+	if (velY - maxVelocity > FLT_EPSILON)
 		velY = maxVelocity;
 
-	if (velY < minVelocity)
+	if (velY - minVelocity < FLT_EPSILON)
 		velY = minVelocity;
 }
 

@@ -25,6 +25,7 @@ ScnMgr::ScnMgr()
 	}
 	Character_Texture = m_Renderer->CreatePngTexture("./Textures/RedCircle.png");
 
+
 	for (int i = 0; i < 8; ++i) {
 		objs[i] = new object();
 		objs[i]->SetAcc(0, 0);
@@ -38,15 +39,17 @@ ScnMgr::ScnMgr()
 	}
 	for (int i = 8; i < MAX_OBJECTS; ++i) {
 		objs[i] = new object();
-		objs[i]->SetAcc(0, 0);
+		// 랜덤값으로 움직이게 만듦
+		objs[i]->SetAcc(rand()%10,rand()%10);
 		objs[i]->SetForce(0, 0);
 		objs[i]->SetCoefFriction(0.5f);
 		objs[i]->SetMass(1.f);
 		objs[i]->SetVelocity(0, 0);
 		objs[i]->SetSize(25, 25);
-		objs[i]->SetKind(KIND_BULLET);
+		objs[i]->SetKind(KIND_BALL);
 		objs[i]->SetIsVisible(true);
 	}
+	// MAX_OBJECTS - 4는 벽을 제외하기 위해서
 	for (int i = 0; i < MAX_OBJECTS; ++i) {
 		bool check = true;
 		objs[i]->SetLocation(rand() % (WINDOW_SIZEX - 100) - 250, rand() % (WINDOW_SIZEY - 100) - 250);
@@ -63,6 +66,8 @@ ScnMgr::ScnMgr()
 			continue;
 		}
 	}
+
+	
 }
 int seq = 0;
 void ScnMgr::RenderScene()	//1초에 최소 60번 이상 출력되어야 하는 함수
@@ -98,12 +103,16 @@ void ScnMgr::Update(float elapsed_time_in_sec)
 	}
 }
 
+
 void ScnMgr::ApplyForce(float ForceX, float ForceY, float elapsed_time_in_sec)
 {
-
 	objs[HERO_ID]->ApplyForce(ForceX, ForceY, elapsed_time_in_sec);
+	//float poten;
+	//objs[HERO_ID]->GetPotential(&poten);
+	//printf("운동량 : %f\n", poten);
 
 }
+
 
 
 void ScnMgr::BreakMovement(bool W_KeyIsDown, bool S_KeyIsDown, bool D_KeyIsDown, bool A_KeyIsDown, float elapsed_time_in_sec)
@@ -165,19 +174,15 @@ void ScnMgr::ObjectCollision()
 				if (i != j)
 					if (objs[j]->GetIsVisible()) {
 						if (CollisionCheck(objs[i], objs[j])) {
-							//이후처리
-							/*
-							objs[i]Kind ojbs[j]Kind
 
-
-							*/
-							//캐릭터 - 캐릭터  서로 밀기
-
+							// 충돌에 의한 반응
+							CollisionReaction(objs[i], objs[j]);
+							
 							//캐릭터 - 공(떨궈진 공-먹어지기, 쏜 공-, 먹은 공)
 
 							//공 - 공
 
-						//	DeleteObject(j);
+							//DeleteObject(j);
 							std::cout << "collision" << std::endl;
 						}
 					}

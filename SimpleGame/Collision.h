@@ -1,2 +1,6 @@
 #pragma once
-bool CollisionCheck(class object* o1,class object* o2);
+bool CollisionCheck(class object* objA,class object* objB);
+
+void CollisionReaction(class object* objA, class object* objB);
+
+void WallCollision(class object* obj);

@@ -6,6 +6,10 @@ class object
 	float sizeX, sizeY, maxX, maxY;
 
 	float velX, velY;
+
+	float preVelMag;
+	float newVelMag;
+
 	float accX, accY;
 	float ForceX, ForceY;
 	
@@ -14,8 +18,21 @@ class object
 	float mass;
 	float coefFriction;
 	float elapsed_time_in_sec;
+
+	//float poten;
+	float newPotenX;
+	float newPotenY;
+
+	//float deltaPoten;
+	float prePotenX;
+	float prePotenY;
+
+	float impulseX;
+	float impulseY;
 	
 	int kind;
+	//int wallKind;
+
 	bool isVisible;
 public:
 	object();
@@ -45,7 +62,7 @@ public:
 	void SetKind(int kind);
 	void GetKind(int *kind);
 
-	void SetIsVisible(bool IsVisible);
+	void SetIsVisible(bool isVisible);
 	bool GetIsVisible();
 
 	void ApplyForce(float ForceX, float ForceY,float elapsed_time_in_sec);
