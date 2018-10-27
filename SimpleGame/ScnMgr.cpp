@@ -109,9 +109,6 @@ void ScnMgr::Update(float elapsed_time_in_sec)
 void ScnMgr::ApplyForce(float ForceX, float ForceY, float elapsed_time_in_sec)
 {
 	objs[HERO_ID]->ApplyForce(ForceX, ForceY, elapsed_time_in_sec);
-	//float poten;
-	//objs[HERO_ID]->GetPotential(&poten);
-	//printf("¿îµ¿·® : %f\n", poten);
 
 }
 

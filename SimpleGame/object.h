@@ -20,19 +20,7 @@ class object
 	float coefFriction;
 	float elapsed_time_in_sec;
 
-	//float poten;
-	float newPotenX;
-	float newPotenY;
-
-	//float deltaPoten;
-	float prePotenX;
-	float prePotenY;
-
-	float impulseX;
-	float impulseY;
-	
 	int kind;
-	//int wallKind;
 
 	bool isVisible;
 public:

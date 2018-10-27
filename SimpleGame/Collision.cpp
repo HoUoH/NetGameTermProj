@@ -60,13 +60,6 @@ void CollisionReaction(class object* oA, class object* oB)
 	oA->GetMass(&oA_M);
 	oB->GetMass(&oB_M);
 
-	float oA_prePoten, oB_prePoten = 0.f;
-	oA_prePoten = oA_M * oA_preVMag;
-	oB_prePoten = oB_M * oB_preVMag;
-
-	float prePotenSum = oA_prePoten + oB_prePoten;
-
-	
 		if (oA_Kind == oB_Kind)
 		{
 			float dx = oA_X - oB_X;
@@ -83,13 +76,7 @@ void CollisionReaction(class object* oA, class object* oB)
 
 			float vyAp = oA_preVX*(-sinTheta) + oA_preVY*cosTheta;
 			float vyBp = oB_preVX*(-sinTheta) + oB_preVY*cosTheta;
-			/*
-			float angleAB = atan2(dy, dx);
-			float angleBA = atan2(-dy, -dx);
-			float moveToDistance = fabsf(oA_rad + oB_rad) - dab;
-			oA_X = oA_X + moveToDistance * cos(angleAB);
-			oB_X = oB_X + moveToDistance * cos(angleBA);
-			*/
+			
 			oA->SetVelocity(vxAp, vyAp);
 			oB->SetVelocity(vyAp, vyBp);
 
@@ -133,8 +120,6 @@ void WallCollision(class object* obj)
 		obj->GetVelocity(&vx, &vy);
 		obj->SetVelocity(vx, -vy*0.5f);
 	}
-
-
 
 
 }
