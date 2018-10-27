@@ -121,13 +121,17 @@ void WallCollision(class object* obj)
 
 	if (posX - rad/2 <= -WINDOW_SIZEX/2||posX+rad/2>= WINDOW_SIZEX / 2) {
 		float vx, vy;
+		obj->GetPreLocation(&posX, &posY);
+		obj->SetLocation(posX, posY);
 		obj->GetVelocity(&vx, &vy);
-		obj->SetVelocity(-vx, vy);
+		obj->SetVelocity(-vx*0.5f, vy);
 	}
-	if (posY - rad/2 <= -WINDOW_SIZEX / 2 || posY + rad/2 >= WINDOW_SIZEX / 2) {
+	if (posY - rad/2 <= -WINDOW_SIZEY / 2 || posY + rad/2 >= WINDOW_SIZEY / 2) {
 		float vx, vy;
+		obj->GetPreLocation(&posX, &posY);
+		obj->SetLocation(posX, posY);
 		obj->GetVelocity(&vx, &vy);
-		obj->SetVelocity(vx, -vy);
+		obj->SetVelocity(vx, -vy*0.5f);
 	}
 
 

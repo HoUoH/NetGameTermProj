@@ -60,7 +60,7 @@ void object::Update(float elapsed_time_in_sec)
 	velX = velX + (accX * elapsed_time_in_sec);
 	velY = velY + (accY * elapsed_time_in_sec);
 
-
+	SetPreLocation(posX, posY);
 	//갱신될 위치 = 이전 위치 + 속도 * 시간 
 	posX = posX + velX * elapsed_time_in_sec;
 	posY = posY + velY * elapsed_time_in_sec;
@@ -78,6 +78,18 @@ void object::GetLocation(float *x, float *y)
 	*x = posX;
 	*y = posY;
 
+}
+
+void object::SetPreLocation(float x, float y)
+{
+	pre_posX = x;
+	pre_posY = y;
+}
+
+void object::GetPreLocation(float * x, float * y)
+{
+	*x = pre_posX;
+	*y = pre_posY;
 }
 
 void object::SetSize(float sizeX, float sizeY)

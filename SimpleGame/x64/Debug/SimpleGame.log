@@ -1,10 +1,4 @@
-﻿  Collision.cpp
-d:\수업\네트워크 프로그래밍\텀 프로젝트\test\netgametermproj\simplegame\collision.cpp(25): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\수업\네트워크 프로그래밍\텀 프로젝트\test\netgametermproj\simplegame\collision.cpp(56): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\수업\네트워크 프로그래밍\텀 프로젝트\test\netgametermproj\simplegame\collision.cpp(57): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\수업\네트워크 프로그래밍\텀 프로젝트\test\netgametermproj\simplegame\collision.cpp(74): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\수업\네트워크 프로그래밍\텀 프로젝트\test\netgametermproj\simplegame\collision.cpp(76): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\수업\네트워크 프로그래밍\텀 프로젝트\test\netgametermproj\simplegame\collision.cpp(77): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\수업\네트워크 프로그래밍\텀 프로젝트\test\netgametermproj\simplegame\collision.cpp(101): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\수업\네트워크 프로그래밍\텀 프로젝트\test\netgametermproj\simplegame\collision.cpp(106): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+﻿  ScnMgr.cpp
+d:\수업\네트워크 프로그래밍\텀 프로젝트\test\netgametermproj\simplegame\scnmgr.cpp(45): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\수업\네트워크 프로그래밍\텀 프로젝트\test\netgametermproj\simplegame\scnmgr.cpp(57): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   SimpleGame.vcxproj -> D:\수업\네트워크 프로그래밍\텀 프로젝트\test\NetGameTermProj\x64\Debug\SimpleGame.exe

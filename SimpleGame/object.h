@@ -3,6 +3,7 @@ class object
 {
 	int hp;
 	float posX, posY;
+	float pre_posX, pre_posY;
 	float sizeX, sizeY, maxX, maxY;
 
 	float velX, velY;
@@ -41,6 +42,10 @@ public:
 
 	void SetLocation(float x, float y);
 	void GetLocation(float *x,float *y);
+
+	void SetPreLocation(float x, float y);
+	void GetPreLocation(float *x, float *y);
+	
 	void SetSize(float size_x, float size_y);
 	void GetSize(float *size_x, float *size_y);
 

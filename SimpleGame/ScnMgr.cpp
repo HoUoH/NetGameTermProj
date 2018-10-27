@@ -37,6 +37,8 @@ ScnMgr::ScnMgr()
 		objs[i]->SetKind(KIND_HERO);
 		objs[i]->SetIsVisible(true);
 	}
+	
+
 	for (int i = 8; i < MAX_OBJECTS; ++i) {
 		objs[i] = new object();
 		// 랜덤값으로 움직이게 만듦
@@ -175,7 +177,11 @@ void ScnMgr::ObjectCollision()
 				if (i != j)
 					if (objs[j]->GetIsVisible()) {
 						if (CollisionCheck(objs[i], objs[j])) {
-
+							float posX, posY = 0;
+							objs[i]->GetPreLocation(&posX, &posY);
+							objs[i]->SetLocation(posX, posY);
+							objs[j]->GetPreLocation(&posX, &posY);
+							objs[j]->SetLocation(posX, posY);
 							// 충돌에 의한 반응
 							CollisionReaction(objs[i], objs[j]);
 
