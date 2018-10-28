@@ -46,7 +46,6 @@ void CollisionReaction(class object* oA, class object* oB)
 	oA->GetSize(&oA_rad, &s1);
 	oB->GetSize(&oB_rad, &s2);
 
-
 	float oA_VX, oA_VY = 0.f;
 	oA->GetVelocity(&oA_VX, &oA_VY);
 

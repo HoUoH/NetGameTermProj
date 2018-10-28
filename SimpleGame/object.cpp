@@ -29,17 +29,17 @@ void object::Update(float elapsed_time_in_sec)
 	
 
 	//벡터의 크기 (크기, 방향 둘다 가지고 있음)
-	preVelMag = sqrtf(velX * velX + velY * velY);
+	VelMag = sqrtf(velX * velX + velY * velY);
 
-	if (preVelMag < FLT_EPSILON) {
+	if (VelMag < FLT_EPSILON) {
 		velX = 0.f;
 		velY = 0.f;
 	}
 	else { // 마찰력에 의한 속도 변화
 		
 		//방향 구하기 정규화
-		frictionX = -friction * velX / preVelMag;
-		frictionY = -friction * velY / preVelMag;
+		frictionX = -friction * velX / VelMag;
+		frictionY = -friction * velY / VelMag;
 
 		float frictionAccX = frictionX / mass;
 		float frictionAccY = frictionY / mass;
@@ -79,6 +79,8 @@ void object::Update(float elapsed_time_in_sec)
 		velY = minVelocity;
 
 }
+
+
 void object::SetLocation(float x, float y)
 {
 	posX = x;

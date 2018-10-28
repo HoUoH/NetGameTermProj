@@ -1,15 +1,15 @@
 #pragma once
 class object
 {
-	int hp;
+	int kind;
 	float posX, posY;
 	float pre_posX, pre_posY;
-	float sizeX, sizeY, maxX, maxY;
+
+	float sizeX, sizeY;
 
 	float velX, velY;
 
-	float preVelMag;
-	float newVelMag;
+	float VelMag;
 
 	float accX, accY;
 	float ForceX, ForceY;
@@ -20,9 +20,8 @@ class object
 	float coefFriction;
 	float elapsed_time_in_sec;
 
-	int kind;
-
 	bool isVisible;
+
 public:
 	object();
 	~object();

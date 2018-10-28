@@ -33,7 +33,7 @@ ScnMgr::ScnMgr()
 		objs[i]->SetCoefFriction(1.f);
 		objs[i]->SetMass(4.f);
 		objs[i]->SetVelocity(0, 0);
-		objs[i]->SetSize(50, 50);
+		objs[i]->SetSize(10, 10);
 		objs[i]->SetKind(KIND_HERO);
 		objs[i]->SetIsVisible(true);
 	}
@@ -85,7 +85,6 @@ void ScnMgr::RenderScene()	//1초에 최소 60번 이상 출력되어야 하는 함수
 			objs[i]->GetSize(&width, &height);
 
 			m_Renderer->DrawTextureRectHeight(x, y, 0, width, height, 1, 1, 1, 1, Character_Texture, 0);
-
 		}
 	}
 }
@@ -103,6 +102,7 @@ void ScnMgr::Update(float elapsed_time_in_sec)
 			objs[i]->Update(elapsed_time_in_sec);
 		}
 	}
+	printf("사이즈 %d\n", sizeof(objs));
 }
 
 
@@ -124,40 +124,6 @@ void ScnMgr::AddObject(float px, float py, float pz, float sx, float sy, float v
 
 }
 
-void ScnMgr::Shoot(int ShootKey)
-{
-	if (ShootKey == SHOOT_NONE) {
-		return;
-	}
-	float px, py;
-	float sx, sy;
-	float vx, vy;
-	objs[HERO_ID]->GetLocation(&px, &py);
-	sx = 0.1f;
-	sy = 0.1f;
-	objs[HERO_ID]->GetVelocity(&vx, &vy);
-	switch (ShootKey) {
-	case SHOOT_LEFT:
-		vx += -10.f;
-		vy += 0.f;
-		break;
-	case SHOOT_RIGHT:
-		vx += 10.0f;
-		vy += 0.f;
-		break;
-	case SHOOT_UP:
-		vx += 0.f;
-		vy += 10.f;
-		break;
-	case SHOOT_DOWN:
-		vx += 0.f;
-		vy += -10.f;
-		break;
-	}
-
-
-
-}
 
 void ScnMgr::DeleteObject(unsigned int id)
 {

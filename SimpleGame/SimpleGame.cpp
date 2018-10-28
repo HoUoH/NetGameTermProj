@@ -22,7 +22,6 @@ BOOL W_KeyIsDown = false;
 BOOL A_KeyIsDown = false;
 BOOL S_KeyIsDown = false;
 BOOL D_KeyIsDown = false;
-int ShootKey = SHOOT_NONE;
 
 void RenderScene(void)	//1초에 최소 60번 이상 출력되어야 하는 함수
 {
@@ -51,8 +50,11 @@ void RenderScene(void)	//1초에 최소 60번 이상 출력되어야 하는 함수
 	g_ScnMgr->ApplyForce(forceX, forceY, eTime);
 	g_ScnMgr->BreakMovement(W_KeyIsDown, S_KeyIsDown, D_KeyIsDown, A_KeyIsDown, eTime);
 	g_ScnMgr->Update(eTime);
+
+	// 클라입장
+	// send() 하고 / 서버가 계산한 최종 위치 recv()
+
 	g_ScnMgr->RenderScene();
-	g_ScnMgr->Shoot(ShootKey);
 	glutSwapBuffers();
 }
 void Idle(void)
@@ -109,39 +111,6 @@ void SpecialKeyInput(int key, int x, int y)
 {
 	RenderScene();
 }
-void SpecialKeyDownInput(int key, int x, int y) {
-
-	if (key == GLUT_KEY_LEFT) {
-		ShootKey = SHOOT_LEFT;
-	}
-	else if (key == GLUT_KEY_RIGHT) {
-		ShootKey = SHOOT_RIGHT;
-	}
-	else if (key == GLUT_KEY_UP) {
-		ShootKey = SHOOT_UP;
-	}
-	else if (key == GLUT_KEY_DOWN) {
-		ShootKey = SHOOT_DOWN;
-	}
-
-	RenderScene();
-
-}
-void SpecialKeyUpInput(int key, int x, int y) {
-	if (key == GLUT_KEY_LEFT) {
-		ShootKey = SHOOT_NONE;
-	}
-	else if (key == GLUT_KEY_RIGHT) {
-		ShootKey = SHOOT_NONE;
-	}
-	else if (key == GLUT_KEY_UP) {
-		ShootKey = SHOOT_NONE;
-	}
-	else if (key == GLUT_KEY_DOWN) {
-		ShootKey = SHOOT_NONE;
-	}
-	RenderScene();
-}
 
 int main(int argc, char **argv)
 {
@@ -150,7 +119,7 @@ int main(int argc, char **argv)
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(0, 0);
 	glutInitWindowSize(WINDOW_SIZEX, WINDOW_SIZEY);
-	glutCreateWindow("Game Software Engineering KPU");
+	glutCreateWindow("2018 Network Game Programming KPU");
 
 	glewInit();
 
@@ -160,8 +129,6 @@ int main(int argc, char **argv)
 	glutKeyboardUpFunc(KeyUpInput);
 	glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);
 	glutMouseFunc(MouseInput);
-	glutSpecialFunc(SpecialKeyDownInput);
-	glutSpecialUpFunc(SpecialKeyUpInput);
 
 	g_ScnMgr = new ScnMgr();
 	glutMainLoop();
