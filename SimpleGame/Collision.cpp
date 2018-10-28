@@ -12,20 +12,20 @@ bool CollisionCheck(object * oA, object * oB)
 {
 
 	float oA_rad, oB_rad;
-	float sizex, sizey;
+	float sizeX, sizeY;
 	float x1, y1;
 	float x2, y2;
-	oA->GetSize(&oA_rad, &sizex);
-	oB->GetSize(&oB_rad, &sizey);
+	oA->GetSize(&oA_rad, &sizeX);
+	oB->GetSize(&oB_rad, &sizeY);
 	oA->GetLocation(&x1, &y1);
 	oB->GetLocation(&x2, &y2);
 
 
-	float colLen = oA_rad / 2 + oB_rad / 2;
-	float len = sqrt((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1));
+	float colLenLimit = oA_rad / 2 + oB_rad / 2;
+	float distBtwPoints = sqrt((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1));
 
 
-	if (colLen <= len)
+	if (colLenLimit <= distBtwPoints)
 		return false;
 
 	return true;
@@ -47,14 +47,11 @@ void CollisionReaction(class object* oA, class object* oB)
 	oB->GetSize(&oB_rad, &s2);
 
 
-	float oA_preVX, oA_preVY = 0.f;
-	oA->GetVelocity(&oA_preVX, &oA_preVY);
+	float oA_VX, oA_VY = 0.f;
+	oA->GetVelocity(&oA_VX, &oA_VY);
 
-	float oB_preVX, oB_preVY = 0.f;
-	oB->GetVelocity(&oB_preVX, &oB_preVY);
-
-	float oA_preVMag = sqrt(oA_preVX * oA_preVX + oA_preVY * oA_preVY);
-	float oB_preVMag = sqrt(oB_preVX * oB_preVX + oB_preVY * oB_preVY);
+	float oB_VX, oB_VY = 0.f;
+	oB->GetVelocity(&oB_VX, &oB_VY);
 
 	float oA_M, oB_M = 0.f;
 	oA->GetMass(&oA_M);
@@ -69,13 +66,13 @@ void CollisionReaction(class object* oA, class object* oB)
 			float sinTheta = dy / fabsf(sqrt(dx*dx + dy * dy));
 			float cosTheta = dx / fabsf(sqrt(dx*dx + dy * dy));
 
-			float vxAp = (oA_M - e * oB_M) / (oA_M + oB_M)*(oA_preVX*cosTheta + oA_preVY*sinTheta) +
-				(oB_M + e * oB_M) / (oA_M + oB_M)*(oB_preVX*cosTheta + oB_preVY*sinTheta);
-			float vxBp = (oA_M + e * oA_M) / (oA_M + oB_M)*(oA_preVX*cosTheta + oA_preVY*sinTheta) +
-				(oB_M - e * oA_M) / (oA_M + oB_M)*(oB_preVX*cosTheta + oB_preVY*sinTheta);
+			float vxAp = (oA_M - e * oB_M) / (oA_M + oB_M)*(oA_VX*cosTheta + oA_VY*sinTheta) +
+				(oB_M + e * oB_M) / (oA_M + oB_M)*(oB_VX*cosTheta + oB_VY*sinTheta);
+			float vxBp = (oA_M + e * oA_M) / (oA_M + oB_M)*(oA_VX*cosTheta + oA_VY*sinTheta) +
+				(oB_M - e * oA_M) / (oA_M + oB_M)*(oB_VX*cosTheta + oB_VY*sinTheta);
 
-			float vyAp = oA_preVX*(-sinTheta) + oA_preVY*cosTheta;
-			float vyBp = oB_preVX*(-sinTheta) + oB_preVY*cosTheta;
+			float vyAp = oA_VX*(-sinTheta) + oA_VY*cosTheta;
+			float vyBp = oB_VX*(-sinTheta) + oB_VY*cosTheta;
 			
 			oA->SetVelocity(vxAp, vyAp);
 			oB->SetVelocity(vyAp, vyBp);
@@ -85,13 +82,13 @@ void CollisionReaction(class object* oA, class object* oB)
 		{
 			if (oA_Kind == KIND_HERO)
 			{
-				float oB_newVMag = sqrt(oB_preVX*oB_preVX + oB_preVY * oB_preVY);
-				if (oB_newVMag > FLT_EPSILON)
+				float oB_VelMag = sqrt(oB_VX*oB_VX + oB_VY * oB_VY);
+				if (oB_VelMag > FLT_EPSILON)
 					oA->SetIsVisible(false);
 			}
 			else if (oB_Kind == KIND_HERO) {
-				float oA_newVMag = sqrt(oA_preVX*oA_preVX + oA_preVY * oA_preVY);
-				if (oA_newVMag > FLT_EPSILON)
+				float oA_VelMag = sqrt(oA_VX*oA_VX + oA_VY * oA_VY);
+				if (oA_VelMag > FLT_EPSILON)
 					oB->SetIsVisible(false);
 			}
 		}
