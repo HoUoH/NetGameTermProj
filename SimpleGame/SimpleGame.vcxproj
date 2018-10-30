@@ -23,7 +23,7 @@
     <ProjectGuid>{25179D6C-FA85-4619-8EDB-AC241382F6CA}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>SimpleGame</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -157,15 +157,18 @@
   <ItemGroup>
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Global.h" />
+    <ClInclude Include="Join.h" />
     <ClInclude Include="LoadPng.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ScnMgr.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TimeCheck.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Join.cpp" />
     <ClCompile Include="LoadPng.cpp" />
     <ClCompile Include="object.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -177,6 +180,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TimeCheck.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\SolidRect.fs" />

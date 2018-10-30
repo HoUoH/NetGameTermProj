@@ -1,5 +1,4 @@
 #include "stdafx.h"
-
 #include "Collision.h"
 #include "object.h"
 #include "Global.h"
@@ -28,6 +27,30 @@ bool CollisionCheck(object * oA, object * oB)
 	if (colLenLimit <= distBtwPoints)
 		return false;
 
+	return true;
+}
+
+bool CollisionCheck(object *oA, float posx, float posy)
+{
+
+	float oA_rad;
+	float Secondsize;
+	float x1, y1;
+	float x2, y2;
+	oA->GetSize(&oA_rad, &Secondsize);
+	oA->GetLocation(&x1, &y1);
+
+
+	float colLenLimit = oA_rad / 2 + PLAYER_SIZE / 2;
+	float distBtwPoints = sqrt((posx - x1)*(posx - x1) + (posy - y1)*(posy - y1));
+
+
+	if (colLenLimit <= distBtwPoints) {
+		//printf("¾È°ãÃÄ\n");
+		return false;
+	}
+
+	//printf("°ãÃÄ\n");
 	return true;
 }
 
@@ -118,4 +141,16 @@ void WallCollision(class object* obj)
 	}
 
 
+}
+
+bool JoinCollision(class object* obj, float posx, float posy){
+	for (int i = 0; i < MAX_OBJECTS; ++i) {
+		if (obj[i].GetIsVisible() == true) {
+			if (CollisionCheck(&obj[i], posx, posy))
+				return true;
+		}
+	}
+
+	//printf("¾È°ãÃÄ\n");
+	return false;
 }

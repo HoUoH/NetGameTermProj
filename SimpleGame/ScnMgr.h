@@ -18,9 +18,15 @@ public:
 	void DeleteObject(unsigned int id);
 	void ObjectCollision();
 	int FindEmptyObjectSlot();
+	//게임 새로 시작 및 시작
+	void joinClick(int key);
+	void RenderJoin();
 private:
 	Renderer *m_Renderer;
 	object *objs[MAX_OBJECTS];
-	GLuint Character_Texture;
+	GLuint Character_Texture[8];
+	GLuint Ball_Texture;
+	GLuint Join_Texture;
+	GLuint Background_Texture;
 };
 

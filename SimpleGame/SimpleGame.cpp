@@ -15,6 +15,7 @@ but WITHOUT ANY WARRANTY.
 #include "Dependencies\glew.h"
 #include "Dependencies\freeglut.h"
 #include "ScnMgr.h"
+#include "join.h"
 
 ScnMgr *g_ScnMgr = NULL;
 DWORD prev_render_time = 0;
@@ -33,7 +34,7 @@ void RenderScene(void)	//1초에 최소 60번 이상 출력되어야 하는 함수
 	prev_render_time = current_time;
 	float eTime = elapsed_time / 1000.f;//convert to second
 //	std::cout << "elapsedTime:" << eTime << std::endl;
-	std::cout << "w:" << W_KeyIsDown << " a:" << A_KeyIsDown << " s:" << S_KeyIsDown << " d:" << D_KeyIsDown << std::endl;
+	//std::cout << "w:" << W_KeyIsDown << " a:" << A_KeyIsDown << " s:" << S_KeyIsDown << " d:" << D_KeyIsDown << std::endl;
 
 	float forceX = 0.f, forceY = 0.f;
 	float amount = 3000.0f;		// 1N = 1000 기준
@@ -109,6 +110,8 @@ void KeyUpInput(unsigned char key, int x, int y) {
 
 void SpecialKeyInput(int key, int x, int y)
 {
+	//시작 키를 눌렀을 경우 (F1키)
+	g_ScnMgr->joinClick(key);
 	RenderScene();
 }
 
@@ -127,6 +130,7 @@ int main(int argc, char **argv)
 	glutIdleFunc(Idle);
 	glutKeyboardFunc(KeyDownInput);
 	glutKeyboardUpFunc(KeyUpInput);
+	glutSpecialFunc(SpecialKeyInput);
 	glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);
 	glutMouseFunc(MouseInput);
 

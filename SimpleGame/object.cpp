@@ -191,7 +191,6 @@ void object::GetKind(int * kind)
 
 }
 
-
 void object::SetIsVisible(bool isVisible)
 {
 	this->isVisible = isVisible;
@@ -252,4 +251,7 @@ void object::BreakMovement(bool W_KeyIsDown, bool S_KeyIsDown, bool D_KeyIsDown,
 
 }
 
-
+void object::PingpongBall() {
+	velX = rand() % 6000 - 3000;
+	velY = rand() % 6000 - 3000;
+}
